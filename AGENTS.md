@@ -50,6 +50,11 @@ cd ~/work/kriterion/examples/bn254-scalar-multiplication
 lake build   # compiles Kriterion + Construction/Proof/Submission + tests
 ```
 
+Confirmed working 2026-09-15: `lake build` completes clean (3666 jobs,
+`Build completed successfully`) and reproduces the 9,699,931-byte baseline
+end to end, including `Submission`/`Proof`/`Correctness`/`AdaptivePrivacy`.
+Toolchain setup is a solved problem — don't redo it, just rebuild.
+
 `Proof/CiphertextSize.lean`'s `ciphertextSize` theorem is the one that pins
 the byte count — if you change the construction, that theorem's RHS literal
 must change to match, and the proof needs re-deriving accordingly.
@@ -121,9 +126,7 @@ Via the `kriterion` CLI in the platform monorepo (`~/work/kriterion`), not a
 web form:
 
 ```sh
-# one-time: connect GitHub + mint a token at https://kriterion.cc/settings
-export KRITERION_API=https://api.kriterion.cc
-export KRITERION_TOKEN=<token from settings>
+source ~/.config/kriterion/env.sh   # sets KRITERION_API + KRITERION_TOKEN (local-only, not in any git repo)
 cd ~/work/kriterion
 pnpm install   # first time only
 pnpm kriterion submit \
@@ -131,6 +134,12 @@ pnpm kriterion submit \
   --repo https://github.com/Lazar955/argomac-lean \
   --commit <full 40-char commit hash on this fork>
 ```
+
+Account status as of 2026-09-15: GitHub connected (`lazar955`), a CLI token
+exists (labeled `cli`, stored in `~/.config/kriterion/env.sh`), but the
+account still has **no role on this challenge** — kriterion.cc/settings says
+"a challenge organizer can invite you." Submission will refuse until a role
+is granted; check settings before assuming the CLI command above will work.
 
 Freezes that exact commit; a verifier run checks the proof and measures
 `ciphertextBytes`. Only push/submit a commit that builds clean locally first
