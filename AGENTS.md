@@ -135,11 +135,12 @@ pnpm kriterion submit \
   --commit <full 40-char commit hash on this fork>
 ```
 
-Account status as of 2026-09-15: GitHub connected (`lazar955`), a CLI token
-exists (labeled `cli`, stored in `~/.config/kriterion/env.sh`), but the
-account still has **no role on this challenge** — kriterion.cc/settings says
-"a challenge organizer can invite you." Submission will refuse until a role
-is granted; check settings before assuming the CLI command above will work.
+Account status as of 2026-09-16: GitHub connected (`lazar955`), a CLI token
+exists (labeled `cli`, stored in `~/.config/kriterion/env.sh`). The
+settings page still shows "You have no role yet. A challenge organizer can
+invite you" — per Jenks (babylonlabs.io, Slack, 2026-09-16) that's a stale
+"ghost process" left in the UI and does **not** actually gate submission.
+No invite needed; the CLI command above should just work with the token.
 
 Freezes that exact commit; a verifier run checks the proof and measures
 `ciphertextBytes`. Only push/submit a commit that builds clean locally first
